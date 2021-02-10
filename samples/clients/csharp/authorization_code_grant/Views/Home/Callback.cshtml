@@ -1,0 +1,12 @@
+﻿@model (string DisplayName, string Blog)
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Cnblogs Open API</h2>
+    <br />
+    <p>第二步 - 授权成功：拿到 code 与 id token</p>
+    <p>欢迎，<a href="@Model.Blog">@Model.DisplayName</a>！</p>
+    <p><a href="/accesstoken">第三步 - 获取 access token</a></p>
+</div>
