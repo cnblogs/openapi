@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "authorization_code_grant": {
+    "Cnblogs.OpenAPI.Client.SampleWebApp": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

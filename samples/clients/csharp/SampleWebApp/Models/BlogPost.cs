@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cnblogs.OpenAPI.Client.Samples.Models
+namespace Cnblogs.OpenAPI.Client.SampleWebApp.Models
 {
     public class BlogPost
     {

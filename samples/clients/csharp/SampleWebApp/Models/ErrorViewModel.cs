@@ -1,6 +1,6 @@
 using System;
 
-namespace authorization_code_grant.Models
+namespace Cnblogs.OpenAPI.Client.SampleWebApp.Models
 {
     public class ErrorViewModel
     {

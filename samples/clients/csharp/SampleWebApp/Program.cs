@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace authorization_code_grant
+namespace Cnblogs.OpenAPI.Client.SampleWebApp
 {
     public class Program
     {

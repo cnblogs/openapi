@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using authorization_code_grant.Models;
+using Cnblogs.OpenAPI.Client.SampleWebApp.Models;
 using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -17,11 +17,10 @@ using System.Text;
 using IdentityModel;
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
-using Cnblogs.OpenAPI.Client.Samples.Models;
 using System.Net.Http.Headers;
-using authorization_code_grant.Options;
+using Cnblogs.OpenAPI.Client.SampleWebApp.Options;
 
-namespace Cnblogs.OpenAPI.Client.Samples.Controllers
+namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
 {
     public class HomeController : Controller
     {

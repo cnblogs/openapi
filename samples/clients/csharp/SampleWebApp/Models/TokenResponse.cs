@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Cnblogs.OpenAPI.Client.Samples.Models
+namespace Cnblogs.OpenAPI.Client.SampleWebApp.Models
 {
     public class TokenResponse
     {
