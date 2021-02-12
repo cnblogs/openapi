@@ -9,6 +9,7 @@ namespace authorization_code_grant.Options
     public class OAuthApiOptions
     {
         public string ApiUrl { get; set; }
+        public string OauthUrl { get; set; }
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
         public string RedirectUri { get; set; }
