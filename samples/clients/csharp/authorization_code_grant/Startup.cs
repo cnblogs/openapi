@@ -54,7 +54,7 @@ namespace authorization_code_grant
 
             var apiOptions = options.Value;
             Console.WriteLine("Started sample web app for authorization code grant type");
-            Console.WriteLine($"API url: {apiOptions.Url}");
+            Console.WriteLine($"API url: {apiOptions.ApiUrl}");
             Console.WriteLine($"Client id: {apiOptions.ClientId}");
         }
     }
