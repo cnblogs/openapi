@@ -112,21 +112,20 @@ namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
             var response = await httpClient.PostAsync($"{_apiOptions.OauthUrl}/connect/token", parameters);
 
             _logger.LogInformation("Response status code {status}", response.StatusCode);
+            var responseText = await response.Content.ReadAsStringAsync();
+            _logger.LogInformation("Response text: \n{ResponseText}", responseText);
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                var responseText = await response.Content.ReadAsStringAsync();
-                // _logger.LogInformation("Response text: \n{ResponseText}", responseText);
-
-                var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-
-                _memoryCache.Set(nameof(TokenResponse.AccessToken), tokenResponse.AccessToken);
-                _memoryCache.Set(nameof(TokenResponse.RefreshToken), tokenResponse.RefreshToken);
-
-                return View(tokenResponse);
+                return Error();
             }
 
-            return Error();
+            var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+
+            _memoryCache.Set(nameof(TokenResponse.AccessToken), tokenResponse.AccessToken);
+            _memoryCache.Set(nameof(TokenResponse.RefreshToken), tokenResponse.RefreshToken);
+
+            return View(tokenResponse);
         }
 
         // 第四步 - 通过 access token 获取当前用户的博文列表
@@ -151,6 +150,40 @@ namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
             }
             var blogPosts = await response.Content.ReadFromJsonAsync<List<BlogPost>>();
             return View(blogPosts);
+        }
+
+        // 第五步 - 用 refresh token 刷新 access token
+        [Route("refreshtoken")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+
+            var parameters = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                ["client_id"] = _apiOptions.ClientId,
+                ["client_secret"] = _apiOptions.ClientSecret,
+                ["grant_type"] = "refresh_token",
+                ["refresh_token"] = _memoryCache.Get<string>(nameof(TokenResponse.RefreshToken))
+            });
+
+            var response = await httpClient.PostAsync($"{_apiOptions.OauthUrl}/connect/token", parameters);
+
+            _logger.LogInformation("Response status code {status}", response.StatusCode);
+
+            var responseText = await response.Content.ReadAsStringAsync();
+            _logger.LogInformation("Response text: \n{ResponseText}", responseText);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return Error();
+            }
+
+            var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+
+            _memoryCache.Set(nameof(TokenResponse.AccessToken), tokenResponse.AccessToken);
+            _memoryCache.Set(nameof(TokenResponse.RefreshToken), tokenResponse.RefreshToken);
+
+            return View(tokenResponse);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
