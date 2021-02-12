@@ -53,7 +53,7 @@ namespace Cnblogs.OpenAPI.Client.Samples.Controllers
         {
             // See http://docs.identityserver.io/en/latest/endpoints/authorize.html
             var url = QueryHelpers.AddQueryString(
-                "https://oauth.cnblogs.com/connect/authorize",
+                $"{_apiOptions.OauthUrl}/connect/authorize",
                 new Dictionary<string, string>
                 {
                     ["client_id"] = _apiOptions.ClientId,
@@ -110,7 +110,7 @@ namespace Cnblogs.OpenAPI.Client.Samples.Controllers
                 ["redirect_uri"] = _apiOptions.RedirectUri
             });
 
-            var response = await httpClient.PostAsync("https://oauth.cnblogs.com/connect/token", parameters);
+            var response = await httpClient.PostAsync($"{_apiOptions.OauthUrl}/connect/token", parameters);
 
             _logger.LogInformation("Response status code {status}", response.StatusCode);
 
@@ -137,7 +137,7 @@ namespace Cnblogs.OpenAPI.Client.Samples.Controllers
             var accessToken = _memoryCache.Get<string>(nameof(TokenResponse.AccessToken));
 
             var httpClient = _httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri("https://dev-api.cnblogs.com");
+            httpClient.BaseAddress = new Uri(_apiOptions.ApiUrl);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             var response = await httpClient.GetAsync("/api/blog/v2/blogposts");
