@@ -23,13 +23,13 @@ namespace authorization_code_grant
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<OAuthApiOptions>(Configuration.GetSection("OAuthApi"));
+            services.Configure<OpenApiOptions>(Configuration.GetSection("OAuthApi"));
             services.AddControllersWithViews();
             services.AddMemoryCache();
             services.AddHttpClient();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<OAuthApiOptions> options)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<OpenApiOptions> options)
         {
             if (env.IsDevelopment())
             {

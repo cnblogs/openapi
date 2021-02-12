@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using authorization_code_grant.Models;
-using authorization_code_grant.Options;
 using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -20,18 +19,19 @@ using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Cnblogs.OpenAPI.Client.Samples.Models;
 using System.Net.Http.Headers;
+using authorization_code_grant.Options;
 
 namespace Cnblogs.OpenAPI.Client.Samples.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly OAuthApiOptions _apiOptions;
+        private readonly OpenApiOptions _apiOptions;
         private readonly IMemoryCache _memoryCache;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(
-            IOptions<OAuthApiOptions> apiOptions,
+            IOptions<OpenApiOptions> apiOptions,
             IMemoryCache memoryCache,
             IHttpClientFactory httpClientFactory,
             ILogger<HomeController> logger)

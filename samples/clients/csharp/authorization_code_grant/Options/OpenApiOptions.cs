@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace authorization_code_grant.Options
 {
-    public class OAuthApiOptions
+    public class OpenApiOptions
     {
         public string ApiUrl { get; set; }
         public string OauthUrl { get; set; }
