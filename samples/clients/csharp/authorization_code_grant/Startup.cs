@@ -23,7 +23,7 @@ namespace authorization_code_grant
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<OpenApiOptions>(Configuration.GetSection("OAuthApi"));
+            services.Configure<OpenApiOptions>(Configuration.GetSection("OpenApi"));
             services.AddControllersWithViews();
             services.AddMemoryCache();
             services.AddHttpClient();
