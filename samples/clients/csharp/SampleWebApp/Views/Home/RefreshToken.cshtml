@@ -1,0 +1,19 @@
+﻿@model TokenResponse
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Cnblogs Open API</h2>
+    <br />
+    <p>第五步 - 用 refresh token 刷新 access token</p>
+    <ul style="text-align:left">
+        <li>
+            <b>New Access Token:</b><br />
+            <textarea style="width:100%;height:100px">@Model.AccessToken</textarea>
+        </li>
+        <li><b>Expires In: </b>@Model.ExpiresIn</li>
+        <li><b>New Refresh Token: </b>@Model.RefreshToken</li>
+    </ul>
+    <p>（全剧完）</p>
+</div>

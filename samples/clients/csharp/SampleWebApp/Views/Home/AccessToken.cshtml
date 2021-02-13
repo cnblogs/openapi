@@ -1,0 +1,19 @@
+﻿@model TokenResponse
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Cnblogs Open API</h2>
+    <br />
+    <p>第三步 - 通过 code 拿到 access token 与 refresh token</p>
+    <ul style="text-align:left">
+        <li>
+            <b>Access Token:</b><br />
+            <textarea style="width:100%;height:100px">@Model.AccessToken</textarea>
+        </li>
+        <li><b>Expires In: </b>@Model.ExpiresIn</li>
+        <li><b>Refresh Token: </b>@Model.RefreshToken</li>
+    </ul>
+    <p><a href="/blogposts">第四步 - 通过 access token 获取当前用户的博文列表</a></p>
+</div>

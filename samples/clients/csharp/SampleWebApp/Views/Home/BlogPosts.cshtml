@@ -1,0 +1,16 @@
+﻿@model IEnumerable<BlogPost>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h2 class="display-4">Cnblogs Open API</h2>
+    <br />
+    <p>第四步 - 通过 access token 获取当前用户的博文列表</p>
+    <ul style="text-align:left">
+        @foreach (var blogpost in Model)
+        {
+            <li><a href="@blogpost.Url" target="_blank">@blogpost.Title</a></li>
+        }
+    </ul>
+    <p><a href="/refreshtoken">第五步 - 用 refresh token 刷新 access token</a></p>
+</div>
