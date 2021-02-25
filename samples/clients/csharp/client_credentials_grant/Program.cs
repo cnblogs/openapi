@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -31,18 +33,35 @@ namespace client_credentials_grant
             using (var scope = host.Services.CreateScope())
             {
                 var httpClient = scope.ServiceProvider.GetRequiredService<IHttpClientFactory>().CreateClient();
+                httpClient.BaseAddress = new Uri("https://api.cnblogs.com");
 
-                var parameters = new FormUrlEncodedContent(new Dictionary<string, string>
+                var request = new TokenRequest
                 {
-                    ["client_id"] = clientId,
-                    ["client_secret"] = clientSecret,
-                    ["grant_type"] = "client_credentials"
-                });
+                    Address = "https://api.cnblogs.com/token",
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                    GrantType = "client_credentials"
+                };
 
-                var response = await httpClient.PostAsync("https://api.cnblogs.com/token", parameters);
-                Console.WriteLine(response.StatusCode);
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                var responseToken = await httpClient.RequestTokenAsync(request);
+                Console.WriteLine("Access token: ");
+                Console.WriteLine(responseToken.AccessToken);
+
+                httpClient.SetBearerToken(responseToken.AccessToken);
+
+                await GetBlogPosts(httpClient, "sitehome", "网站首页博文:");
+                await GetBlogPosts(httpClient, "sitehome", "编辑推荐博文:");
+                await GetBlogPosts(httpClient, "mostliked", "博文推荐排行:");
+                await GetBlogPosts(httpClient, "mostread", "博文阅读排行:");
             }
+        }
+
+        private static async Task GetBlogPosts(HttpClient httpClient, string aggSiteName, string listTitle)
+        {
+            var urlPath = $"/api/blog/v2/blogposts/aggsites/{aggSiteName}?pageIndex=1&pageSize=1";
+            Console.WriteLine();
+            Console.WriteLine(listTitle);
+            Console.WriteLine(await httpClient.GetStringAsync(urlPath));
         }
     }
 }
