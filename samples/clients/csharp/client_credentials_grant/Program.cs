@@ -8,7 +8,7 @@ using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace client_credentials_grant
+namespace Cnblogs.OpenAPI.Client.SampleConsoleApp
 {
     class Program
     {
