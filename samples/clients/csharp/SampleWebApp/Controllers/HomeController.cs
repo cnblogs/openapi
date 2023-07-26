@@ -117,7 +117,7 @@ namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                return Error();
+                return RedirectToAction(nameof(Error), new { message = responseText });
             }
 
             var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
@@ -175,7 +175,7 @@ namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                return Error();
+                return RedirectToAction(nameof(Error), new { message = responseText });
             }
 
             var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
@@ -187,9 +187,13 @@ namespace Cnblogs.OpenAPI.Client.SampleWebApp.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string message)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = message
+            });
         }
     }
 }
